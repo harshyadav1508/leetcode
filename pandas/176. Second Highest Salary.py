@@ -3,9 +3,9 @@
 import pandas as pd
 
 def second_highest_salary(employee: pd.DataFrame) -> pd.DataFrame:
-    employee.drop_duplicates(subset="salary", keep='first', inplace=True)
-    SecondHighestSalary = employee.sort_values(by='salary', ascending=False)
-    empty_df = pd.DataFrame({'SecondHighestSalary':[None]})
+    SecondHighestSalary=employee['salary'].drop_duplicates().sort_values(ascending=False)
+
     if len(SecondHighestSalary)<2:
-        return empty_df
-    return SecondHighestSalary.iloc[1:2]['salary'].to_frame().rename(columns={'salary': 'SecondHighestSalary'})
+        return pd.DataFrame({'SecondHighestSalary':[None]})
+    else:
+        return pd.DataFrame({'SecondHighestSalary':[SecondHighestSalary.iloc[1]]})
